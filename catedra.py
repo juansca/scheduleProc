@@ -8,7 +8,7 @@ class Proceso:
         pid: id del proceso. Cada proceso tiene un único id y existe un único
         proceso con un cierto id.
         estado: el estado del proceso en un momento dado. Los estados posibles
-                son: 'listo', 'dormido' y 'terminado'.
+                son: 'listo', 'ejecutando' y 'terminado'.
                 NOTA: el estado es un string.
         prioridad: es la prioridad del proceso. Esto sólo se utilizará en el
                   caso en que el algoritmo utilizado haga uso de las
@@ -27,9 +27,39 @@ class Proceso:
         self.rafaga = rafaga
 
     def ejecutar():
+        """Este método ejecuta durante un instante de tiempo el proceso.
+        Mientra el proceso está ejecuntándose, su estado será "ejecutando".
+        Una vez que haya finalizado su tiempo de ráfaga, el estado pasará a ser
+        "terminado".
+
+        IMPORTANTE: Será responsabilidad del planificador cambiar el estado de
+        "ejecutando" a "listo" en caso de que el algoritmo de planificación sea
+        apropiativo.
+        """
+        self.estado = "ejecutando"
         self.rafaga -= 1
+        if self.rafaga == 0:
+            self.estado = "terminado"
+
+    def estado_listo(self):
+        """Este método simplemente cambia el estado a listo.
+        Sirve como interfaz.
+        """
+        self.estado = "listo"
 
 
-class cpu:
+class CPU:
+    """Esta clase representa el cpu de una máquina. Ella ejecutará procesos
+    conforme se los brinden.
+    """
     def __init__(self):
+        """El cpu, en esta caso (muy) simplificado para enfocar la atención a
+        la ejecución de los procesos, tendrá como atributos:
+        proc: proceso que está ejecutando en un momento dado.
+        run_time: tiempo total de ejecución (para simplificación, sólo se
+                  contará el tiempo en que haya un proceso en la cpu)
+        """
+        pass
+
+    def ejecutar(self):
         pass
