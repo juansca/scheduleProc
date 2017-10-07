@@ -20,8 +20,8 @@ class Proceso:
                 pasará al estado 'terminado'.
         """
         self.pid = pid
-        self.estado = status
-        self.prioridad = priority
+        self.estado = estado
+        self.prioridad = prioridad
         self.tiempo_inicial = tiempo_inicial
         self.end_time = None
         self.rafaga = rafaga
@@ -48,6 +48,10 @@ class Proceso:
         self.estado = "listo"
 
 
+class ProcesoSinRafaga(Exception):
+    pass
+
+
 class CPU:
     """Esta clase representa el cpu de una máquina. Ella ejecutará procesos
     conforme se los brinden.
@@ -59,7 +63,12 @@ class CPU:
         run_time: tiempo total de ejecución (para simplificación, sólo se
                   contará el tiempo en que haya un proceso en la cpu)
         """
-        pass
+        self.proc = None
+        self.run_time = 0
 
-    def ejecutar(self):
-        pass
+    def ejecutar(self, proceso):
+        if proceso.estado == "terminado":
+            raise ProcesoSinRafaga("El proceso ha terminado de ejecutarse!")
+
+        proceso.ejecutar()
+        self.run_time += 1
