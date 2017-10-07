@@ -8,7 +8,7 @@ class Planificador:
             'fcfs': Planificador.fcfs,
             'sjfna': Planificador.sjfna,
             'sjfa': Planificador.sjfa,
-            'rr': Planificador.round_robin,
+            'rr': Planificador.rr,
             'ppna': Planificador.ppna,
             'ppa': Planificador.ppa,
 
@@ -16,16 +16,13 @@ class Planificador:
 
         self.listos = []
         self.finalizados = []
-        self.algoritmo = algoritmo
+        self.algoritmo = algoritmos[algoritmo]
 
     def ejecutar_algoritmo(self):
-        pass
+        self.algoritmo()
 
-    def _entra_proceso(self, proc):
-        pass
-
-    def _proceso_termina(self, proc):
-        pass
+    def entra_proceso(self, proc):
+        self.listos.append(proc)
 
     def fcfs(self):
         """Algoritmo de planificación Firts-Come, First-Served (FCFS)"""
