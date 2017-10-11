@@ -1,9 +1,12 @@
+import texttable as tt
+
+
 class Proceso:
     """Esta clase representa un proceso con sus caracteristicas básicas para
     simular una planificación de procesos.
     """
-    def __init__(pid=pid, estado='listo', prioridad=None,
-                 tiempo_inicial=tiempo_inicial, rafaga=rafaga):
+    def __init__(self, pid=None, estado='listo', prioridad=None,
+                 tiempo_arribo=None, rafaga=None):
         """Un proceso tiene los siguientes atributos:
         pid: id del proceso. Cada proceso tiene un único id y existe un único
         proceso con un cierto id.
@@ -22,7 +25,8 @@ class Proceso:
         self.pid = pid
         self.estado = estado
         self.prioridad = prioridad
-        self.tiempo_inicial = tiempo_inicial
+        self.tiempo_arribo = tiempo_arribo
+        self.tiempo_inicial = None
         self.end_time = None
         self.rafaga = rafaga
 
@@ -67,8 +71,43 @@ class CPU:
         self.run_time = 0
 
     def ejecutar(self, proceso):
+        if proceso.tiempo_inicial is None:
+            proceso.tiempo_inicial = self.run_time
         if proceso.estado == "terminado":
             raise ProcesoSinRafaga("El proceso ha terminado de ejecutarse!")
 
         proceso.ejecutar()
         self.run_time += 1
+
+    def gettime(self):
+        return self.run_time
+
+###############################################################################
+
+
+def to_table(procesos):
+    """Toma una lista de procesos (instancias de la clase Proceso) y confecciona
+    una tabla con los datos de cada uno
+    """
+    # Estas serán las etiquetas de las columnas
+    headears = ["PID", "Ráfaga", "T Arribo",
+                "T Inicial", "T Final", "Tiempo Total"]
+
+    # Aquí creamos cada columna
+    pids = [proc.pid for proc in procesos]
+    rafagas = [proc.rafaga for proc in procesos]
+    tiempos_arribo = [proc.tiempo_arribo for proc in procesos]
+    tiempos_iniciales = [proc.tiempo_inicial for proc in procesos]
+    tiempos_finales = [proc.end_time for proc in procesos]
+    tiempos_totales = [tf - ta for ta, tf in zip(tiempos_arribo,
+                                                 tiempos_finales)]
+
+    table = tt.Texttable()
+    table.header(headears)
+
+    for fila in zip(pids, rafagas, tiempos_arribo, tiempos_iniciales,
+                    tiempos_finales, tiempos_finales, tiempos_totales):
+        table.add_row(fila)
+
+    s = table.draw()
+    return s
