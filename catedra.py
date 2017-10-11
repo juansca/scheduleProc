@@ -27,7 +27,7 @@ class Proceso:
         self.prioridad = prioridad
         self.tiempo_arribo = tiempo_arribo
         self.tiempo_inicial = None
-        self.end_time = None
+        self.end_time = -1
         self.rafaga = rafaga
 
     def ejecutar():
@@ -99,6 +99,7 @@ def to_table(procesos):
     tiempos_arribo = [proc.tiempo_arribo for proc in procesos]
     tiempos_iniciales = [proc.tiempo_inicial for proc in procesos]
     tiempos_finales = [proc.end_time for proc in procesos]
+
     tiempos_totales = [tf - ta for ta, tf in zip(tiempos_arribo,
                                                  tiempos_finales)]
 
@@ -106,7 +107,7 @@ def to_table(procesos):
     table.header(headears)
 
     for fila in zip(pids, rafagas, tiempos_arribo, tiempos_iniciales,
-                    tiempos_finales, tiempos_finales, tiempos_totales):
+                    tiempos_finales, tiempos_totales):
         table.add_row(fila)
 
     s = table.draw()
