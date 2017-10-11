@@ -13,7 +13,6 @@ class Planificador:
             'ppa': Planificador.ppa,
 
         }
-
         self.listos = []
         self.finalizados = []
         self.algoritmo = algoritmos[algoritmo]
@@ -23,6 +22,9 @@ class Planificador:
 
     def entra_proceso(self, proc):
         self.listos.append(proc)
+
+    def terminados(self):
+        return self.finalizados
 
     def fcfs(self):
         """Algoritmo de planificación Firts-Come, First-Served (FCFS)"""
