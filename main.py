@@ -9,6 +9,12 @@ def ask(name):
 
 
 def agregar_procesos(planificador):
+    """Esta función leerá el archivo que contiene una instancia de procesos.
+    A partir de él, creará los procesos correspondientes y utilizará métodos
+    del planificador para que éste último se haga de ellos.
+    Además, la función imprimirá por consola una tabla con la instancia que
+    ha cargado del archivo.
+    """
     procesos = []
     with open('procesos.csv', 'r') as f:
         i = 0

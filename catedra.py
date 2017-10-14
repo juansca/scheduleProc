@@ -54,6 +54,9 @@ class Proceso:
 
 
 class ProcesoSinRafaga(Exception):
+    """Esta clase representa la excepción que ocurre cuando se quiere ejecutar
+    un proceso que no tiene más ráfaga.
+    """
     pass
 
 
@@ -68,10 +71,15 @@ class CPU:
         run_time: tiempo total de ejecución (para simplificación, sólo se
                   contará el tiempo en que haya un proceso en la cpu)
         """
-        self.proc = None
         self.run_time = 0
 
     def ejecutar(self, proceso):
+        """Este método ejecuta un proceso en la CPU.
+        Se encargará de cambiar el estado a 'terminado' en caso de ser
+        necesario, pero NO lo cambiará a 'listo'.
+        Asignar el tiempo una vez que se termine de ejecutar el proceso será
+        responsabilidad del planificador.
+        """
         if proceso.tiempo_inicial is None:
             proceso.tiempo_inicial = self.run_time
         if proceso.estado == "terminado":
@@ -81,6 +89,9 @@ class CPU:
         self.run_time += 1
 
     def gettime(self):
+        """Este método retorna el tiempo total que ha ejecutado la CPU en el
+        momento en que se lo invoca.
+        """
         return self.run_time
 
 ###############################################################################
