@@ -5,17 +5,21 @@ class Planificador:
 
     def __init__(self, algoritmo='rr'):
         algoritmos = {
-            'fcfs': Planificador.fcfs,
-            'sjfna': Planificador.sjfna,
-            'sjfa': Planificador.sjfa,
-            'rr': Planificador.rr,
-            'ppna': Planificador.ppna,
-            'ppa': Planificador.ppa,
+            'fcfs': self.fcfs,
+            'sjfna': self.sjfna,
+            'sjfa': self.sjfa,
+            'rr': self.rr,
+            'ppna': self.ppna,
+            'ppa': self.ppa,
 
         }
+        self.quantum = None
         self.listos = []
         self.finalizados = []
         self.algoritmo = algoritmos[algoritmo]
+
+    def agregar_quantum(self, quantum):
+        self.quantum = quantum
 
     def ejecutar_algoritmo(self):
         self.algoritmo()
