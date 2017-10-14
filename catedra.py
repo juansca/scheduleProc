@@ -1,4 +1,5 @@
 import texttable as tt
+from numpy import mean
 
 
 class Proceso:
@@ -85,9 +86,38 @@ class CPU:
 ###############################################################################
 
 
-def to_table(procesos):
-    """Toma una lista de procesos (instancias de la clase Proceso) y confecciona
-    una tabla con los datos de cada uno
+def table(procesos, headers):
+    """Toma una lista de procesos (instancias de la clase Proceso), confecciona
+    una tabla con los datos de cada uno.
+    Esta función se usará para mostrar la instancia del problema inicial, una
+    vez que se cargan desde el archivo.
+    Notar que para este caso, le pasamos como argumento los nombres de las
+    columnas.
+    """
+    # Aquí creamos cada columna
+    pids = [proc.pid for proc in procesos]
+    rafagas = [proc.rafaga for proc in procesos]
+    tiempos_arribo = [proc.tiempo_arribo for proc in procesos]
+
+    table = tt.Texttable()
+    table.header(headers)
+
+    if len(headers) == 4:
+        prioridades = [proc.prioridad for proc in procesos]
+        filas = zip(pids, rafagas, tiempos_arribo, prioridades)
+    else:
+        filas = zip(pids, rafagas, tiempos_arribo)
+    for fila in filas:
+        table.add_row(fila)
+
+    tabla = table.draw()
+    return tabla
+
+
+def stats(procesos):
+    """Toma una lista de procesos (instancias de la clase Proceso), confecciona
+    una tabla con los datos de cada uno y calcula el promedio de espera de
+    todos los procesos
     """
     # Estas serán las etiquetas de las columnas
     headears = ["PID", "Ráfaga", "T Arribo",
@@ -102,7 +132,9 @@ def to_table(procesos):
 
     tiempos_totales = [tf - ta for ta, tf in zip(tiempos_arribo,
                                                  tiempos_finales)]
-
+    tiempos_espera = [tt - r for tt, r in zip(tiempos_totales,
+                                              rafagas)]
+    promedio_espera = mean(tiempos_espera)
     table = tt.Texttable()
     table.header(headears)
 
@@ -110,5 +142,5 @@ def to_table(procesos):
                     tiempos_finales, tiempos_totales):
         table.add_row(fila)
 
-    s = table.draw()
-    return s
+    tabla = table.draw()
+    return tabla, promedio_espera
