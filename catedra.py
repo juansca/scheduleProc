@@ -1,5 +1,6 @@
 import texttable as tt
 from numpy import mean
+import csv
 
 
 class Proceso:
@@ -155,3 +156,35 @@ def stats(procesos):
 
     tabla = table.draw()
     return tabla, promedio_espera
+
+
+def agregar_procesos(planificador, filename):
+    """Esta función leerá el archivo que contiene una instancia de procesos.
+    A partir de él, creará los procesos correspondientes y utilizará métodos
+    del planificador para que éste último se haga de ellos.
+    Además, la función imprimirá por consola una tabla con la instancia que
+    ha cargado del archivo.
+    """
+    procesos = []
+    with open(filename, 'r') as f:
+        i = 0
+        reader = csv.reader(f)
+        for proc_info in reader:
+            if i == 0:
+                headers = proc_info
+                i += 1
+                continue
+            pid = proc_info[0]
+            rafaga = int(proc_info[1])
+            tiempo_arribo = int(proc_info[2])
+            # Si el algoritmo que vamos a usar no utiliza la prioridad,
+            # no se tendrá en cuenta la misma
+            prioridad = None
+            if len(proc_info) == 4:
+                prioridad = int(proc_info[3])
+            proc = Proceso(pid=pid, rafaga=rafaga, tiempo_arribo=tiempo_arribo,
+                           prioridad=prioridad)
+            planificador.entra_proceso(proc)
+            procesos.append(proc)
+    estado_inicial = table(procesos, headers)
+    print(estado_inicial)
