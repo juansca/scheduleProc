@@ -52,7 +52,7 @@ while True:
             print("\n\nALGORITMO EN EJECUCIÓN...\n\n")
             planificador.ejecutar_algoritmo()
             procesos_terminados = planificador.terminados()
-            tabla, promedio = stats(procesos_terminados)
+            tabla, promedio, _ = stats(procesos_terminados)
             print("El promedio de espera de los procesos fue de {}", promedio)
             print(tabla)
 

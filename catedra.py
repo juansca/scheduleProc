@@ -155,7 +155,15 @@ def stats(procesos):
         table.add_row(fila)
 
     tabla = table.draw()
-    return tabla, promedio_espera
+
+    datos_testing = dict()
+    datos_testing['pids'] = pids
+    datos_testing['rafagas'] = rafagas
+    datos_testing['tiempos_finales'] = tiempos_finales
+    datos_testing['tiempos_totales'] = tiempos_totales
+    datos_testing['tiempos_espera'] = tiempos_espera
+
+    return tabla, promedio_espera, datos_testing
 
 
 def agregar_procesos(planificador, filename):
