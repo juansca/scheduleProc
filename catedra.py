@@ -30,7 +30,7 @@ class Proceso:
         self.end_time = None
         self.rafaga = rafaga
 
-    def ejecutar():
+    def ejecutar(self):
         """Este método ejecuta durante un instante de tiempo el proceso.
         Mientra el proceso está ejecuntándose, su estado será "ejecutando".
         Una vez que haya finalizado su tiempo de ráfaga, el estado pasará a ser
