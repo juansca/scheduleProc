@@ -47,8 +47,10 @@ while True:
                 q = ask('''Cuál será el quantum a utilizar?''')
                 q = int(q)
                 planificador.agregar_quantum(q)
-
-            agregar_procesos(planificador, 'procesos.csv')
+            if alg == 'ppna' or alg == 'ppa':
+                agregar_procesos(planificador, 'procesos/procesos_pp.csv')
+            else:
+                agregar_procesos(planificador, 'procesos/procesos.csv')
             print("\n\nALGORITMO EN EJECUCIÓN...\n\n")
             planificador.ejecutar_algoritmo()
             procesos_terminados = planificador.terminados()
