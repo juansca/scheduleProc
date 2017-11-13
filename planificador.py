@@ -32,7 +32,6 @@ class Planificador:
 
     def fcfs(self):
         """Algoritmo de planificación Firts-Come, First-Served (FCFS)"""
-        # Aquí va su código ###
         pass
 
     def sjfna(self):
