@@ -32,7 +32,7 @@ class Proceso:
         self.end_time = -1
         self.rafaga = rafaga
 
-    def ejecutar():
+    def ejecutar(self):
         """Este método ejecuta durante un instante de tiempo el proceso.
         Mientra el proceso está ejecuntándose, su estado será "ejecutando".
         Una vez que haya finalizado su tiempo de ráfaga, el estado pasará a ser
@@ -162,7 +162,7 @@ def stats(procesos):
     datos_testing['tiempos_finales'] = tiempos_finales
     datos_testing['tiempos_totales'] = tiempos_totales
     datos_testing['tiempos_espera'] = tiempos_espera
-
+    datos_testing['promedio'] = promedio_espera
     return tabla, promedio_espera, datos_testing
 
 
