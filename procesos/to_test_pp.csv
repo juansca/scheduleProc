@@ -1,0 +1,21 @@
+PROCESOS,TIEMPO DE LLEGADA,RAFAGA ,PRIORIDAD (nro. Mas bajo=prioridad más alta)
+P1,0 ms,5 ms,3
+P8,2 ms,3 ms,3
+P7,3 ms,12 ms,5
+P4,5 ms,20 ms,2
+P19,7 ms,13 ms,5
+P13,8 ms,18 ms,5
+P18,9 ms,20 ms,4
+P2,10 ms,10 ms,5
+P5,10 ms,7 ms,1
+P9,12 ms,10 ms,4
+P12,14 ms,30 ms,2
+P17,15 ms,16 ms,2
+P3,15 ms,15 ms,1
+P16,18 ms,26 ms,1
+P10,20 ms,7 ms,1
+P6,20 ms,50 ms,2
+P11,22 ms,28 ms,4
+P14,25 ms,8 ms,3
+P20,27 ms,33 ms,3
+P15,28 ms,2 ms,4
