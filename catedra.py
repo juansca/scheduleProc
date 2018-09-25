@@ -183,8 +183,8 @@ def agregar_procesos(planificador, filename):
                 i += 1
                 continue
             pid = proc_info[0]
-            rafaga = int(proc_info[1])
-            tiempo_arribo = int(proc_info[2])
+            rafaga = int(proc_info[2])
+            tiempo_arribo = int(proc_info[1])
             # Si el algoritmo que vamos a usar no utiliza la prioridad,
             # no se tendrá en cuenta la misma
             prioridad = None
